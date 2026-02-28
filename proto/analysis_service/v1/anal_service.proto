@@ -1,0 +1,3 @@
+syntax = "proto3";
+
+package skycontrol.analysis.service.v1;
