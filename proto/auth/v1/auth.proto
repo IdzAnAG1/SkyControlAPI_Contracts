@@ -2,8 +2,6 @@ syntax = "proto3";
 
 package skycontrol.auth.v1;
 
-option go_package = "github.com/IdzAnAG1/SkyControlAPI_Auth/generated/skycontrol/auth/v1;skyControlAuthV1";
-
 service Auth {
   rpc Register (RegisterRequest) returns (RegisterResponse);
   rpc Login (LoginRequest) returns (LoginResponse);
