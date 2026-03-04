@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package skycontrol.telemetry.v1;
+
+import "google/protobuf/empty.proto";
+
+service telemetry {
+  rpc test (google.protobuf.Empty) returns (google.protobuf.Empty);
+}
