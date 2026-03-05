@@ -2,9 +2,21 @@ syntax = "proto3";
 
 package skycontrol.auth.v1;
 
+import "google/api/annotations.proto";
+
 service Auth {
-  rpc Register (RegisterRequest) returns (RegisterResponse);
-  rpc Login (LoginRequest) returns (LoginResponse);
+  // Register new user in the system
+  rpc Register (RegisterRequest) returns (RegisterResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/register"
+    };
+  };
+  // Login user if he registered in the system
+  rpc Login (LoginRequest) returns (LoginResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/login"
+    };
+  };
 }
 
 message RegisterRequest {
