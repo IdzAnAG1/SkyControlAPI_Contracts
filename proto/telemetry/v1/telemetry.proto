@@ -3,6 +3,7 @@ syntax = "proto3";
 package skycontrol.telemetry.v1;
 
 import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto";
 
 service telemetry {
   rpc GetDevicesInfo (DevicesInfoRequest) returns (DevicesInfoResponse) {
