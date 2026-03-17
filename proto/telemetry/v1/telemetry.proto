@@ -2,8 +2,86 @@ syntax = "proto3";
 
 package skycontrol.telemetry.v1;
 
-import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
 
 service telemetry {
-  rpc test (google.protobuf.Empty) returns (google.protobuf.Empty);
+  rpc GetDevicesInfo (DevicesInfoRequest) returns (DevicesInfoResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/telemetry/get_device_info"
+    };
+  };
+  rpc GetDeviceInfo (DeviceInfoRequest) returns (DeviceInfoResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/telemetry/get_device_info"
+    };
+  };
+}
+
+message DevicesInfoRequest {
+  string user_id = 1;
+  int32 page = 2;
+  int32 page_size = 3;
+}
+message ShortDeviceInfo {
+  string device_id = 1;
+  string device_name = 2;
+  google.protobuf.Timestamp device_up_time = 3;
+  string device_status = 4;
+  int32 device_charge_percentage = 5;
+}
+message DevicesInfoResponse {
+  repeated ShortDeviceInfo devices_info = 1;
+  int32 total = 2;
+  int32 page = 3;
+  string err_message = 4;
+}
+
+message DeviceInfoRequest {
+  string device_id = 1;
+  string user_id = 2;
+}
+
+message DeviceInfoResponse {
+  ExtendedDeviceInfo device_info = 1;
+  string err_message = 2;
+}
+
+message ExtendedDeviceInfo {
+  string device_id = 1;
+  string device_name = 2;
+  google.protobuf.Timestamp device_up_time = 3;
+  string device_status = 4;
+  DevicePower device_power = 5;
+  DevicePosition device_position = 6;
+  DeviceVelocity device_velocity = 7;
+  DeviceCamera device_camera = 8;
+
+}
+
+message DeviceCamera {
+  bool has_camera = 1;
+  string camera_type = 2;
+  string camera_model = 3;
+  string camera_status = 4;
+}
+
+message DeviceVelocity {
+  double ground_speed = 1;
+  double vertical_speed = 2;
+  double north_speed = 3;
+  double east_speed = 4;
+  double down_speed = 5;
+}
+
+message DevicePower {
+  double voltage = 1;
+  double current = 2;
+  double power = 3;
+}
+
+message DevicePosition {
+  double latitude = 1;
+  double longitude = 2;
+  double altitude = 3;
+  double home_distance = 4;
 }

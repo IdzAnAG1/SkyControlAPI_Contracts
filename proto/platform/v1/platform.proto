@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package skycontrol.platform.v1;
+
+import "google/api/annotations.proto";
+
+service Auth {
+  // Register new user Device in the system
+  rpc RegisterDevice (RegisterDeviceRequest) returns (RegisterDeviceResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/platform/register"
+      body: "*"
+    };
+  };
+  rpc GetUserDevices (GetUserDevicesRequest) returns (GetUserDevicesResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/platform/get_user_device"
+    };
+  }
+  rpc GetDevice (GetDeviceRequest) returns (GetDeviceResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/platform/get_device"
+    };
+  }
+}
+
+message RegisterDeviceRequest {
+  string user_id = 1;
+  string device_name = 2;
+  string device_description = 3;
+  string device_specifications = 4;
+}
+
+message RegisterDeviceResponse {
+  string device_id = 1;
+  string err_message = 2;
+}
+
+message GetUserDevicesRequest {
+  string user_id = 1;
+  int32 page = 2;
+  int32 page_size = 3;
+}
+
+message GetUserDevicesResponse {
+  repeated Device device = 1;
+  int32 total = 2;
+  int32 page = 3;
+  string err_message = 4;
+}
+
+message Device {
+  string device_id = 1;
+  string device_name = 2;
+  string device_description = 3;
+  string device_specifications = 4;
+}
+
+message GetDeviceRequest {
+  string device_id = 1;
+  string user_id = 2;
+}
+
+message GetDeviceResponse {
+  Device device = 1;
+  string err_message = 2;
+}
