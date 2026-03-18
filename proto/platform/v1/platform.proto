@@ -4,7 +4,7 @@ package skycontrol.platform.v1;
 
 import "google/api/annotations.proto";
 
-service Auth {
+service Platform {
   // Register new user Device in the system
   rpc RegisterDevice (RegisterDeviceRequest) returns (RegisterDeviceResponse) {
     option (google.api.http) = {
